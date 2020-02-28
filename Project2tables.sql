@@ -74,7 +74,7 @@ CREATE TABLE disk_has_borrower (
 );
 
 --Drop & Create login/user
-IF USER_ID('diskUserjn') IS NULL
+IF SUSER_ID('diskUserjn') IS NULL
 		CREATE LOGIN diskUserjn WITH PASSWORD = 'Pa$$w0rd',
 		DEFAULT_DATABASE = disk_inventoryJN;
 
