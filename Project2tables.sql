@@ -5,6 +5,7 @@
 
 --2/28/2020 Josh	Initial Deployment
 --3/5/2020	Josh	Added inserts to all tables.
+--3/12/2020 Josh	Added scripting to view certain tables.
 -- ===========================================================================
 
 use master;
@@ -215,7 +216,7 @@ INSERT INTO [dbo].[artist]
 		   ('Chris', 'Daughtry',1),
 		   ('The Cars', null,2),
 		   ('Black Sabbath', null,2),
-		   ('The Eagles', 'null',2),
+		   ('The Eagles', null,2),
 		   ('Patsy', 'Cline',1),
 		   ('Pearl Jam', null,2),
 		   ('Shinedown', null,2),
@@ -291,3 +292,57 @@ GO
 SELECT borrower_id as Borrower_id, disk_id as Disk_id, borrowed_date as Borrowed_date, returned_date as Return_date
 FROM disk_has_borrower
 WHERE returned_date IS NULL;
+
+-- Project 4 Starts Here
+
+--3. Show the disks in your database and any associated Invidual Artists only.
+select disk_name as 'Disk Name', convert(varchar(10), release_date, 101) as 'Release Date', fname as 'Artist First Name', lname as 'Artist Last Name'
+from disk
+join disk_has_artist on disk.disk_id = disk_has_artist.disk_id
+join artist on disk_has_artist.artist_id = artist.artist_id
+where artist_type_id = 1
+order by lname, fname, disk_name;
+go
+
+--4. Create a view called View_Individual_Artist that shows the artists’ names and not group names. Include the artist id in the view definition but do not display the id in your output.
+create view View_Individual_Artist as
+	select artist_id, fname, lname
+	from artist
+	where artist_type_id = 1;
+go
+select fname as 'FirstName', lname as 'LastName'
+from View_Individual_Artist
+order by lname, fname
+go
+
+--5. Show the disks in your database and any associated Group artists only. Use the View_Individual_Artist view
+select disk_name as 'Disk Name', convert(varchar(10), release_date, 101) as 'Release Date', fname as 'Group Name'
+from disk
+join disk_has_artist on disk.disk_id = disk_has_artist.disk_id
+join artist on disk_has_artist.artist_id = artist.artist_id
+where artist.artist_id not in (select artist_id from View_Individual_Artist)
+order by fname;
+
+--6. Show which disks have been borrowed and who borrowed them.
+select fname as 'First', lname as 'Last', disk_name as 'Disk Name', borrowed_date as 'Borrowed Date', 
+	returned_date as 'Returned Date'
+from borrower b
+join disk_has_borrower dhb on b.borrower_id = dhb.borrower_id
+join disk d on dhb.disk_id = d.disk_id
+order by disk_name, lname, fname, borrowed_date, returned_date;
+
+--7. Show the number of times each disk has been borrowed.
+select d.disk_id, disk_name, count(*) as 'Times Borrowed'
+from disk d
+join disk_has_borrower dhb on d.disk_id = dhb.disk_id
+group by d.disk_id, disk_name
+--having count(*) > 1
+order by d.disk_id;
+
+--8. Show the disks outstanding or on-loan and who has each disk
+select disk_name as 'Disk Name', borrowed_date as 'Borrowed', returned_date as 'Returned', lname as 'Last'
+from disk d
+join disk_has_borrower dhb on d.disk_id = dhb.disk_id
+join borrower b on dhb.borrower_id = b.borrower_id
+where returned_date is null
+order by disk_name;
