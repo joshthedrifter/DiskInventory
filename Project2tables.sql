@@ -409,7 +409,7 @@ AS
 GO
 GRANT EXECUTE ON sp_del_artist TO diskUserjn;
 EXEC sp_del_artist 22;
-EXEC sp_del_artist 'test';
+EXEC sp_del_artist 1;
 go
 --3. Create Insert, Update, and Delete stored procedures for the borrower table. Update procedure accepts input parameters for all columns. Insert accepts all columns as input parameters except for identity fields. Delete accepts a primary key value for delete.
 
