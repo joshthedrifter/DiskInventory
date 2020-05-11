@@ -3,14 +3,15 @@
 <%-- -------------------------------------------------------------------------------%>
 <%-- 04/26/2020 Josh       Initial implementation of borrowers entry page         --%>
 <%-- 05/01/2020 Josh       Added ListView to add, upd & del borrower              --%>
+<%-- 05/11/2020 Josh       Added validation for artist type ID field              --%>
 <%-- **************************************************************************** --%>
 <%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Borrowers.aspx.cs" Inherits="DiskInv.Borrowers" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <p>
         <br />
         </p>
-    <p>
-        Borrower</p>
+    <p style="font-size: 18px; font-weight:bold;">
+        Borrowers</p>
     <p>
         <asp:ListView ID="ListView1" runat="server" DataKeyNames="borrower_id" DataSourceID="SqlDataSource1" InsertItemPosition="LastItem">
             <AlternatingItemTemplate>
@@ -110,7 +111,7 @@
                 <table runat="server">
                     <tr runat="server">
                         <td runat="server">
-                            <table id="itemPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
+                            <table id="itemPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #000000;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
                                 <tr runat="server" style="background-color:#DCDCDC;color: #000000;">
                                     <th runat="server"></th>
                                     <th runat="server">borrower_id</th>

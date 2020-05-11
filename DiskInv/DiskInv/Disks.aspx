@@ -3,12 +3,13 @@
 <%-- ------------------------------------------------------------------------------%>
 <%-- 04/26/2020 Josh       Initial implementation of Disks entry page            --%>
 <%-- 05/01/2020 Josh       Added ListView to add, upd & del disks                --%>
+<%-- 05/11/2020 Josh       Added validation for ID fields on edit and insert     --%>
 <%-- *************************************************************************** --%>
 <%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Disks.aspx.cs" Inherits="DiskInv.Disks" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <p>
     &nbsp;</p>
-<p>
+<p style="font-size: 18px; font-weight:bold;">
     Disks</p>
 <p>
     <asp:ListView ID="ListView1" runat="server" DataKeyNames="disk_id" DataSourceID="SqlDataSource1" InsertItemPosition="LastItem">
@@ -53,19 +54,27 @@
                 </td>
                 <td>
                     <asp:TextBox ID="release_dateTextBox" runat="server" Text='<%# Bind("release_date") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Required" ControlToValidate="release_dateTextBox" ValidationGroup="Edit"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Required" ControlToValidate="release_dateTextBox" ValidationGroup="Edit" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Must be a valid date" ControlToValidate="release_dateTextBox" Type="Date" ValidationGroup="Edit" Operator="DataTypeCheck"></asp:CompareValidator>
                 </td>
                 <td>
                     <asp:TextBox ID="genre_idTextBox" runat="server" Text='<%# Bind("genre_id") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Required" ControlToValidate="genre_idTextBox" ValidationGroup="Edit"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Required" ControlToValidate="genre_idTextBox" ValidationGroup="Edit" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RangeValidator ID="RangeValidator3" runat="server" ErrorMessage="ID must be 1-5" Type="Integer" ValidationGroup="Insert" MaximumValue="5" MinimumValue="1" Display="Dynamic" ControlToValidate="genre_idTextBox"></asp:RangeValidator>
                 </td>
                 <td>
                     <asp:TextBox ID="status_idTextBox" runat="server" Text='<%# Bind("status_id") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Required" ControlToValidate="status_idTextBox" ValidationGroup="Edit"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Required" ControlToValidate="status_idTextBox" ValidationGroup="Edit" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="ID must be 1 or 2" Type="Integer" ValidationGroup="Insert" MaximumValue="2" MinimumValue="1" Display="Dynamic" ControlToValidate="status_idTextBox"></asp:RangeValidator>
                 </td>
                 <td>
                     <asp:TextBox ID="disk_type_idTextBox" runat="server" Text='<%# Bind("disk_type_id") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Required" ControlToValidate="disk_type_idTextBox" ValidationGroup="Edit"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Required" ControlToValidate="disk_type_idTextBox" ValidationGroup="Edit" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="ID must be 1 or 2" Type="Integer" ValidationGroup="Insert" MaximumValue="2" MinimumValue="1" Display="Dynamic" ControlToValidate="disk_type_idTextBox"></asp:RangeValidator>
                 </td>
             </tr>
         </EditItemTemplate>
@@ -85,23 +94,32 @@
                 <td>&nbsp;</td>
                 <td>
                     <asp:TextBox ID="disk_nameTextBox" runat="server" Text='<%# Bind("disk_name") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Required" ControlToValidate="disk_nameTextBox" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Required" ControlToValidate="disk_nameTextBox" ValidationGroup="Insert" Display="Dynamic"></asp:RequiredFieldValidator>
                 </td>
                 <td>
                     <asp:TextBox ID="release_dateTextBox" runat="server" Text='<%# Bind("release_date") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Required" ControlToValidate="release_dateTextBox" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Required" ControlToValidate="release_dateTextBox" ValidationGroup="Insert" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Must be a valid date" ControlToValidate="release_dateTextBox" Type="Date" ValidationGroup="Insert" Operator="DataTypeCheck"></asp:CompareValidator>
                 </td>
                 <td>
                     <asp:TextBox ID="genre_idTextBox" runat="server" Text='<%# Bind("genre_id") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Required" ControlToValidate="genre_idTextBox" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Required" ControlToValidate="genre_idTextBox" ValidationGroup="Insert" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RangeValidator ID="RangeValidator3" runat="server" ErrorMessage="ID must be 1-5" Type="Integer" ValidationGroup="Insert" MaximumValue="5" MinimumValue="1" Display="Dynamic" ControlToValidate="genre_idTextBox"></asp:RangeValidator>
                 </td>
                 <td>
                     <asp:TextBox ID="status_idTextBox" runat="server" Text='<%# Bind("status_id") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Required" ControlToValidate="status_idTextBox" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Required" ControlToValidate="status_idTextBox" ValidationGroup="Insert" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="ID must be 1 or 2" Type="Integer" ValidationGroup="Insert" MaximumValue="2" MinimumValue="1" Display="Dynamic" ControlToValidate="status_idTextBox"></asp:RangeValidator>
                 </td>
                 <td>
                     <asp:TextBox ID="disk_type_idTextBox" runat="server" Text='<%# Bind("disk_type_id") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Required" ControlToValidate="disk_type_idTextBox" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Required" ControlToValidate="disk_type_idTextBox" ValidationGroup="Insert" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="ID must be 1 or 2" Type="Integer" ValidationGroup="Insert" MaximumValue="2" MinimumValue="1" Display="Dynamic" ControlToValidate="disk_type_idTextBox"></asp:RangeValidator>
                 </td>
             </tr>
         </InsertItemTemplate>

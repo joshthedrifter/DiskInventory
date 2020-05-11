@@ -3,12 +3,13 @@
 <%-- ------------------------------------------------------------------------------%>
 <%-- 04/26/2020 Josh       Initial implementation of Artists entry page          --%>
 <%-- 05/01/2020 Josh       Added ListView to allow add, edit & update of artists --%>
+<%-- 05/11/2020 Josh       Made minor style changes                              --%>
 <%-- *************************************************************************** --%>
 <%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Artists.aspx.cs" Inherits="DiskInv.Artists" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <p>
     &nbsp;</p>
-<p>
+<p style="font-size: 18px; font-weight:bold;">
     Artists</p>
 <p>
     <asp:ListView ID="ListView1" runat="server" DataKeyNames="artist_id" DataSourceID="SqlDataSource1" InsertItemPosition="LastItem">
@@ -50,7 +51,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="artist_type_idTextBox" runat="server" Text='<%# Bind("artist_type_id") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Required" ControlToValidate="artist_type_idTextBox" ValidationGroup="Edit"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Required" ControlToValidate="artist_type_idTextBox" ValidationGroup="Edit" Display="Dynamic"></asp:RequiredFieldValidator>                    
+                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="ID must be 1 or 2" ValidationGroup="Edit" Display="Dynamic" ControlToValidate="artist_type_idTextBox" MaximumValue="2" MinimumValue="1" Type="Integer"></asp:RangeValidator>
                 </td>
             </tr>
         </EditItemTemplate>
@@ -77,7 +79,8 @@
                 </td>
                 <td>
                     <asp:TextBox ID="artist_type_idTextBox" runat="server" Text='<%# Bind("artist_type_id") %>' />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Required" ControlToValidate="artist_type_idTextBox" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Required" ControlToValidate="artist_type_idTextBox" ValidationGroup="Insert" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="ID must be 1 or 2" ValidationGroup="Insert" Display="Dynamic" ControlToValidate="artist_type_idTextBox" MaximumValue="2" MinimumValue="1" Type="Integer"></asp:RangeValidator>
                 </td>
             </tr>
         </InsertItemTemplate>
@@ -105,7 +108,7 @@
             <table runat="server">
                 <tr runat="server">
                     <td runat="server">
-                        <table id="itemPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
+                        <table id="itemPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #000000;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
                             <tr runat="server" style="background-color:#DCDCDC;color: #000000;">
                                 <th runat="server"></th>
                                 <th runat="server">artist_id</th>
